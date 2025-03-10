@@ -289,6 +289,12 @@ jobs:
           key: ${{ github.job }}-ccache-${{ github.run_id }}
           restore-keys: ${{ github.job }}-ccache-
 
+      - name: Check perf
+        run: cat /proc/sys/kernel/perf_event_paranoid
+
+      - name: enable perf
+        run: echo 1 | sudo tee /proc/sys/kernel/perf_event_paranoid
+
       - name: Enable bpfcc script
         # In the image build step, no external environment variables are available,
         # so any settings will need to be written to the settings env file:
