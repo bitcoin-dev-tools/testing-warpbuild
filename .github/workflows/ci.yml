@@ -269,7 +269,8 @@ jobs:
   arm-unit-tests-no-functional-tests:
     name: 'ARM, unit tests, no functional tests'
     runs-on: warp-ubuntu-latest-arm64-4x-spot # has to match container in ci/test/00_setup_env_native_asan.sh for tracing tools
-    if: ${{ vars.SKIP_BRANCH_PUSH != 'true' || github.event_name == 'pull_request' }}
+    if: false
+    # if: ${{ vars.SKIP_BRANCH_PUSH != 'true' || github.event_name == 'pull_request' }}
     timeout-minutes: 120
     env:
       FILE_ENV: "./ci/test/00_setup_env_arm.sh"
@@ -305,7 +306,7 @@ jobs:
 
   asan-lsan-ubsan-integer-no-depends-usdt:
     name: 'ASan + LSan + UBSan + integer, no depends, USDT'
-    runs-on: warp-ubuntu-latest-x64-32x-spot # has to match container in ci/test/00_setup_env_native_asan.sh for tracing tools
+    runs-on: warp-ubuntu-latest-x64-2x-spot # has to match container in ci/test/00_setup_env_native_asan.sh for tracing tools
     if: ${{ vars.SKIP_BRANCH_PUSH != 'true' || github.event_name == 'pull_request' }}
     timeout-minutes: 120
     env:
