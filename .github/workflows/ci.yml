@@ -268,7 +268,7 @@ jobs:
 
   asan-lsan-ubsan-integer-no-depends-usdt:
     name: 'ASan + LSan + UBSan + integer, no depends, USDT'
-    runs-on: warp-ubuntu-latest-x64-4x-spot # has to match container in ci/test/00_setup_env_native_asan.sh for tracing tools
+    runs-on: warp-ubuntu-latest-x64-32x-spot # has to match container in ci/test/00_setup_env_native_asan.sh for tracing tools
     if: ${{ vars.SKIP_BRANCH_PUSH != 'true' || github.event_name == 'pull_request' }}
     timeout-minutes: 120
     env:
@@ -291,15 +291,6 @@ jobs:
           path: ${{ env.CCACHE_DIR }}
           key: ${{ github.job }}-ccache-${{ github.run_id }}
           restore-keys: ${{ github.job }}-ccache-
-
-      - name: Check perf
-        run: cat /proc/sys/kernel/perf_event_paranoid
-
-      - name: enable perf
-        run: echo -1 | sudo tee /proc/sys/kernel/perf_event_paranoid
-
-      - name: Check perf
-        run: cat /proc/sys/kernel/perf_event_paranoid
 
       - name: Enable bpfcc script
         # In the image build step, no external environment variables are available,
